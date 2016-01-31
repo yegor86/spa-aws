@@ -1,6 +1,0 @@
-{
-    "AllowUnauthenticatedIdentities": false,
-    "SupportedLoginProviders": {
-        "accounts.google.com": "<Google Client ID Here!>"
-    }
-}

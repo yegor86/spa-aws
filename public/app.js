@@ -1,6 +1,8 @@
 'use strict';
 
-var spa = {};
+var spa = {
+	poolId: 'us-east-1:8b90d9aa-e71c-4ee7-afce-55d405aa4959'
+};
 
 spa.problems = [{
 		description: "Are we alone?",
@@ -33,6 +35,15 @@ spa.problemView = function(data) {
 		return false;
 	}
 
+	if (problemNumber < spa.problems.length) {
+		var buttonItem = spa.template('skip-btn');
+		buttonItem.find('a').attr('href', '#problem-' + (problemNumber + 1));
+		$('.nav-list').append(buttonItem);
+		view.bind('removingView', function(){
+			buttonItem.remove();
+		});
+	}
+
 	view.find('.check-btn').click(checkAnswerClick);
 	view.find('.title').text('Problem #' + problemNumber);
 	spa.applyObject(spa.problems[problemNumber - 1], view);
@@ -53,6 +64,7 @@ spa.showView = function(hash) {
 	var parts = hash.split('-');
 	var viewFn = routes[parts[0]];
 	if (viewFn) {
+		spa.triggerEvent('removingView', []);
 		$('.view-container').empty().append(viewFn(parts[1]));
 	}
 }
@@ -91,4 +103,37 @@ spa.buildCorrectFlash = function(problemNumber){
 		link.text('You are finished');
 	}
 	return correctFlash;
+}
+
+spa.triggerEvent = function(name, args){
+	$('.view-container>*').trigger(name, args);
+}
+
+function googleSignIn(googleUser) {
+  var id_token = googleUser.getAuthResponse().id_token;
+  AWS.config.update({
+    region: 'us-east-1',
+    credentials: new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: spa.poolId,
+      Logins: {
+        'accounts.google.com': id_token
+      }
+    })
+  });
+  function refresh() {
+	return gapi.auth2.getAuthInstance().signIn({
+	    prompt: 'login'
+	  }).then(function(userUpdate) {
+		  var creds = AWS.config.credentials;
+		  var newToken = userUpdate.getAuthResponse().id_token;
+		  creds.params.Logins['accounts.google.com'] = newToken;
+		  return spa.awsRefresh();
+	  });
+  }
+  // $.when(spa.awsRefresh()).then(function(id) {
+  //   spa.identity.resolve({
+  //     id: id,
+  //     email: googleUser.getBasicProfile().getEmail()
+  //   });
+  // });
 }

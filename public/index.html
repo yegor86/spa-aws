@@ -37,15 +37,26 @@
         background: #666;
       }
       .nav-container a{color: white}
+      .navbar-padding {
+        padding-top: 0px;
+        display: inline-block;
+      }
     </style>
+    <meta name="google-signin-client_id" content="550756352790-jkkqroevqnu3204nj9u8cbam1geeb12v.apps.googleusercontent.com"/>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
   </head>
   <body>
     <div class='markup'>
       <div class='nav-container no-select fixed-top u-full-width'>
-        <ul class='inline-list hover-links nav-list siz columns'>
+        <ul class='inline-list hover-links nav-list six columns'>
           <li><a class='text-lg' href='#'>Single Page Application</a></li>
           <li><a href='#problem-1'>Start</a></li>  
         </ul>
+        <div class='four colums'>
+          <span class='navbar-padding u-pull-right'>
+            <span class='g-signin2' data-onsuccess="googleSignIn"></span>
+          </span>
+        </div>
       </div>
       <div class='view-container container'>
       </div>
@@ -73,6 +84,11 @@
             </div>
           </form>
         </div>
+
+        <li class='skip-btn'>
+          <a>Skip This Problem</a>
+        </li>
+
         <div class='correct-flash'>
           <span>Correct!</span><a>Next Problem</a>
         </div>
