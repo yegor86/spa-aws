@@ -1,7 +1,4 @@
+.vagrant/
 spa.sublime-workspace
 security-credentials
 security-credentials~
-.DS_Store
-dist
-working
-master

@@ -3,6 +3,7 @@
 var spa = {
 	poolId: 'us-east-1:8b90d9aa-e71c-4ee7-afce-55d405aa4959'
 };
+spa.identity = new $.Deferred();
 
 spa.problems = [{
 		description: "Are we alone?",
@@ -12,6 +13,10 @@ spa.problems = [{
 		code: "function problem(){return 42 === 6*__;}"
 	}
 ];
+
+spa.landingView = function(){
+	return spa.template('landing-view');
+}
 
 spa.problemView = function(data) {
 	var problemNumber = parseInt(data, 10);
@@ -50,8 +55,18 @@ spa.problemView = function(data) {
 	return view;
 }
 
-spa.landingView = function(){
-	return spa.template('landing-view');
+spa.profileView = function(){
+	var view = spa.template('profile-view');
+	spa.identity.done(function(){
+		view.find('email').text(identity.email);
+	});
+	return view;
+}
+
+spa.addProfileLink = function(profile){
+	var link = spa.template('profile-link');
+	link.find('a').text(profile.email);
+	$('.signin-bar').prepend(link);
 }
 
 spa.showView = function(hash) {
@@ -59,7 +74,8 @@ spa.showView = function(hash) {
 	var routes = {
 		'': spa.landingView,
 		'#': spa.landingView,
-		'#problem': spa.problemView
+		'#problem': spa.problemView,
+		'#profile': spa.profileView
 	};
 	var parts = hash.split('-');
 	var viewFn = routes[parts[0]];
@@ -74,6 +90,7 @@ spa.appOnReady = function() {
 		spa.showView(window.location.hash);
 	};
 	spa.showView(window.location.hash);
+	spa.identity.done(spa.addProfileLink);
 }
 
 spa.applyObject = function(obj, elem) {
@@ -119,7 +136,7 @@ function googleSignIn(googleUser) {
         'accounts.google.com': id_token
       }
     })
-  });
+  })
   function refresh() {
 	return gapi.auth2.getAuthInstance().signIn({
 	    prompt: 'login'
@@ -130,10 +147,23 @@ function googleSignIn(googleUser) {
 		  return spa.awsRefresh();
 	  });
   }
-  // $.when(spa.awsRefresh()).then(function(id) {
-  //   spa.identity.resolve({
-  //     id: id,
-  //     email: googleUser.getBasicProfile().getEmail()
-  //   });
-  // });
+  spa.awsRefresh().then(function(id) {
+  	spa.identity.resolve({
+  		id: id,
+  		email: googleUser.getBasicProfile().getEmail(),
+  		refresh:refresh
+  	});	
+  });
+}
+
+spa.awsRefresh = function() {
+	var deferred = new $.Deferred();
+	AWS.config.credentials.refresh(function(err) {
+		if (err) {
+			deferred.reject(err);
+		} else {
+			deferred.resolve(AWS.config.credentials.identityId);
+		}
+	});
+	return deferred.promise();
 }
