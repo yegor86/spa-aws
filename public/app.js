@@ -23,17 +23,18 @@ spa.problemView = function(data) {
 	var view = $('.templates .problem-view').clone();
 	var problemData = spa.problems[problemNumber - 1];
 	var resultFlash = view.find('.result');
+	var answer = view.find('.answer');
 
 	function checkAnswer(){
-		var answer = view.find('.answer').val();
-		var test = problemData.code.replace('__', answer) + '; problem();';
+		var test = problemData.code.replace('__', answer.val()) + '; problem();';
 		return eval(test);
 	}
 
 	function checkAnswerClick(){
 		if (checkAnswer()){
-			var correctFlash = spa.buildCorrectFlash(problemNumber);
-			spa.flashElement(resultFlash, correctFlash);
+			var content = spa.buildCorrectFlash(problemNumber);
+			spa.flashElement(resultFlash, content);
+			spa.saveAnswer(problemNumber, answer.val());
 		} else {
 			spa.flashElement(resultFlash, 'Incorrect');
 		}
@@ -48,6 +49,12 @@ spa.problemView = function(data) {
 			buttonItem.remove();
 		});
 	}
+
+	spa.fetchAnswer(problemNumber).then(function(data) {
+	    if (data.Item) {
+	    	answer.val(data.Item.answer);
+	    }
+	});
 
 	view.find('.check-btn').click(checkAnswerClick);
 	view.find('.title').text('Problem #' + problemNumber);
@@ -132,6 +139,8 @@ function googleSignIn(googleUser) {
     region: 'us-east-1',
     credentials: new AWS.CognitoIdentityCredentials({
       IdentityPoolId: spa.poolId,
+      // RoleArn: 'arn:aws:iam::655508188333:role/_cognito_authenticated',
+      // AccountId: '655508188333',
       Logins: {
         'accounts.google.com': id_token
       }
@@ -166,4 +175,75 @@ spa.awsRefresh = function() {
 		}
 	});
 	return deferred.promise();
+}
+
+spa.sendDbRequest = function(req, retry) {
+	var promise = new $.Deferred();
+	req.on('error', function(error) {
+		if (error.code === "CredentialsError") {
+			spa.identity.then(function(identity) {
+				return identity.refresh().then(function() {
+					return retry();
+				}, function() {
+					promise.reject(resp);
+				});
+			});
+		} else {
+			promise.reject(error);
+		}
+	});
+	req.on('success', function(resp) {
+		promise.resolve(resp.data);
+	});
+	req.send();
+	return promise;
+}
+
+spa.saveAnswer = function(problemId, answer) {
+	return spa.identity.then(function(identity) {
+		var db = new AWS.DynamoDB.DocumentClient();
+		var item = {
+			TableName: 'problems',
+			Item: {
+				userId: identity.id,
+				problemId: problemId,
+				answer: answer
+			}
+		};
+		return spa.sendDbRequest(db.put(item), function(){
+			return spa.saveAnswer(problemId, answer);
+		})
+	})
+}
+
+
+spa.fetchAnswer = function(problemId){
+	return spa.identity.then(function(identity) {
+		var db = new AWS.DynamoDB.DocumentClient();
+		var item = {
+			TableName: 'problems',
+			Key: {
+				userId: identity.id,
+				problemId: problemId
+			}
+		};
+		return spa.sendDbRequest(db.get(item), function(){
+			return spa.fetchAnswer(problemId);
+		})
+	})
+}
+
+spa.countAnswers = function(problemId) {
+  return spa.identity.then(function(identity) {
+    var db = new AWS.DynamoDB.DocumentClient();
+    var params = {
+      TableName: 'problems',
+      Select: 'COUNT',
+      FilterExpression: 'problemId = :problemId',
+      ExpressionAttributeValues: {':problemId': problemId}
+    };
+    return spa.sendDbRequest(db.scan(params), function() {
+      return spa.countAnswers(problemId);
+    })
+  });
 }

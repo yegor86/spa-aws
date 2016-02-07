@@ -126,15 +126,15 @@ function create_cognito_auth_role() {
   local pool_id=$(support/jsed.py ${identity_pool_dir}/pool_info.json 'IdentityPoolId')
   local pool_name=$(support/jsed.py ${identity_pool_dir}/pool_info.json 'IdentityPoolName')
   generate_assume_role_policy ${pool_id} > ${identity_pool_dir}/assume_role_policy.json
-  if [[ ! -s ${identity_pool_dir}/role_info.json ]]; then
-    local role_name="${pool_name}_cognito_authenticated"
-    echo "Creaing role: $role_name"
-    # Might be able to use the create_iam_role function for this
-    aws --profile $profile iam create-role \
-      --role-name "$role_name" \
-      --assume-role-policy-document "file://${identity_pool_dir}/assume_role_policy.json" \
-      > ${identity_pool_dir}/role_info.json
-  fi
+  echo "Pool id: $pool_id, Pool name: $pool_name" 
+  
+  local role_name="${pool_name}_cognito_authenticated"
+  echo "Creaing role: $role_name"
+  # Might be able to use the create_iam_role function for this
+  aws --profile $profile iam create-role \
+    --role-name "$role_name" \
+    --assume-role-policy-document "file://${identity_pool_dir}/assume_role_policy.json" \
+    > ${identity_pool_dir}/role_info.json
 }
 
 
@@ -335,6 +335,15 @@ case "$action" in
       create_lambda_service ${2}
     else
       echo "Please specify a Lambda config directory" 
+      exit 1
+    fi
+    ;;
+
+  create_role)
+    if [[ $# -eq 2 ]]; then
+      create_cognito_auth_role ${2}
+    else 
+      echo "Please specify a Cognito identity pool configuration directory"
       exit 1
     fi
     ;;
