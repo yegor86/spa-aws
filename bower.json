@@ -1,0 +1,13 @@
+{
+  "name": "spa-aws",
+  "description": "Single Page Application with AWS",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "angular": "1.4.x",
+    "angular-mocks": "1.4.x",
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.1.1",
+    "angular-route": "1.4.x"
+  }
+}

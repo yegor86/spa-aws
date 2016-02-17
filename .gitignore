@@ -2,3 +2,6 @@
 spa.sublime-workspace
 security-credentials
 security-credentials~
+services/npm-debug.*
+bower_components/
+node_modules/

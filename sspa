@@ -2,7 +2,7 @@
 
 abspath="$(cd "${0%/*}" 2>/dev/null; echo "$PWD"/"${0##*/}")"
 root_dir=`dirname "$abspath"`
-app_name=learnjs
+app_name=spa_aws
 code_bucket=${app_name}/_code_bundles
 profile=admin
 
@@ -186,7 +186,7 @@ function build_bundle() {
   check_node_deps
   pushd services
   rm archive.zip
-  npm install || exit 1
+  npm install --no-bin-links || exit 1
   mkdir -p dist
   cp -r node_modules dist/
   cp -r lib/* dist/
@@ -234,7 +234,7 @@ function create_lambda_service() {
   local service_dir=${1%/}
   local function_name=$(basename $service_dir)
   create_iam_role lambda_exec "file://conf/iam/policies/lambda_trust.json"
-  local role_arn=$(support/jsed.py conf/iam/roles/learnjs_lambda_exec/info.json 'Role.Arn')
+  local role_arn=$(support/jsed.py conf/iam/roles/spa_aws_lambda_exec/info.json 'Role.Arn')
   if [[ ! -e ${service_dir}/info.json ]]; then
     aws lambda create-function \
       --function-name ${function_name} \
