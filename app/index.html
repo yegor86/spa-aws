@@ -7,24 +7,36 @@
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css'>
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css'>
 	<link rel="stylesheet" href="../assets/css/main.css">
-	<script src="../bower_components/angular/angular.js"></script>
-	<script src="../bower_components/angular-route/angular-route.js"></script>
-	<script src='../bower_components/jquery/dist/jquery.min.js'></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+	<script src='bower_components/jquery/dist/jquery.min.js'></script>
 	<script src="js/app.js"></script>
 	<script src="js/controllers.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/cognito.js"></script>
+  <!-- Google Login -->
+  <meta name="google-signin-client_id" content="550756352790-jkkqroevqnu3204nj9u8cbam1geeb12v.apps.googleusercontent.com"/>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <!-- AWS SDK-->
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.36.min.js"></script>
 </head>
 <body>
   	<div class='nav-container no-select fixed-top u-full-width'>
-        <ul class='inline-list hover-links nav-list six columns'>
-          <li><a class='text-lg' href='#'>Single Page Application</a></li>
-          <li><a href='#problem-1'>Start</a></li>  
-        </ul>
-        <div class='four colums signin-bar'>
-          <span class='navbar-padding u-pull-right'>
-            <span class='g-signin2' data-onsuccess="googleSignIn"></span>
-          </span>
-        </div>
-  	</div>
+      <ul id='nav-bar' class='inline-list hover-links nav-list six columns' ng-controller="NavCtrl">
+        <li ng-repeat='item in items'>
+          <a class='{{item.class}}' href='{{item.href}}'>{{item.text}}</a>
+        </li>
+        <li class='skip-btn'>
+          <a ng-href='#/{{skipBtn.href}}'>{{skipBtn.name}}</a>
+        </li>
+      </ul>
+      <div class='four colums signin-bar'>
+        <span class='navbar-padding u-pull-right'>
+          <span class='g-signin2' data-onsuccess="googleSignIn"></span>
+        </span>
+      </div>
+    </div>
   	<div class="view-container" ng-view></div>
 </body>
 </html>

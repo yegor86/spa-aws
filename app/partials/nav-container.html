@@ -1,7 +1,8 @@
 <div class='nav-container no-select fixed-top u-full-width'>
   <ul class='inline-list hover-links nav-list six columns'>
-    <li><a class='text-lg' href='#'>Single Page Application</a></li>
-    <li><a href='#problem-1'>Start</a></li>  
+    <li ng-repeat='item in items'>
+    	<a class='{{item.class}}' href='{{item.href}}'>{{item.text}}</a>
+    </li>
   </ul>
   <div class='four colums signin-bar'>
     <span class='navbar-padding u-pull-right'>

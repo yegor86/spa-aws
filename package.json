@@ -18,7 +18,7 @@
     "postinstall": "bower install",
 
     "prestart": "npm install",
-    "start": "http-server ./app -a 0.0.0.0 -p 9293",
+    "start": "http-server ./app -a 0.0.0.0 -p 9292",
 
     "pretest": "npm install",
     "test": "node node_modules/karma/bin/karma start test/karma.conf.js",

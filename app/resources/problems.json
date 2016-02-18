@@ -1,0 +1,8 @@
+[{
+		"description": "Are we alone?",
+		"code": "function problem(){return __;}"
+	},{
+		"description": "Do we have only one universe?",
+		"code": "function problem(){return 42 === 6*__;}"
+	}
+]

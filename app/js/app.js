@@ -4,7 +4,8 @@
 
 var spa = angular.module('spa', [
   'ngRoute',
-  'spaControllers'
+  'spaControllers',
+  'spaServices'
 ]);
 
 spa.config(['$routeProvider',
@@ -30,8 +31,8 @@ spa.config(['$routeProvider',
         templateUrl: 'partials/landing-view.html',
         controller: 'LandingCtrl'
       })
-      .when('/problem-view', {
-        templateUrl: 'partials/problem-view.html',
+      .when('/problems/:problemId', {
+        templateUrl: 'partials/problems.html',
         controller: 'ProblemCtrl'
       })
       .when('/correct-flash', {
