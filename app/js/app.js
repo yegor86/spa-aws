@@ -18,12 +18,8 @@ spa.config(['$routeProvider',
       .when('/skip-btn', {
         templateUrl: 'partials/skip-btn.html',
         controller: 'NavCtrl'
-      })
-      .when('/profile-link', {
-        templateUrl: 'partials/profile-link.html',
-        controller: 'ProfileCtrl'
-      })
-      .when('/profile-view', {
+      })      
+      .when('/profile', {
         templateUrl: 'partials/profile-view.html',
         controller: 'ProfileCtrl'
       })

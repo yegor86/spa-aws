@@ -13,7 +13,13 @@ spaControllers.controller('NavCtrl', ['$scope', '$http', 'MenuItems',
 ]);
 
 spaControllers.controller('ProfileCtrl', ['$scope', function($scope) {
-	
+	angular.element(document).ready(function () {
+        cognito.identity.done(function(profile) {
+        	$scope.$apply(function () {
+        		$scope.email = profile.email;
+        	});
+        });
+    });
 }]);
 
 spaControllers.controller('LandingCtrl', ['$scope', function($scope) {
@@ -62,7 +68,6 @@ spaControllers.controller('ProblemCtrl', ['$document', '$scope', '$routeParams',
 				 	$scope.flash.answer = 'Incorrect!';
 				 	$scope.flash.text = '';
 				}
-				console.log($scope.flash.answer);
 	        };
 
         	function checkAnswer(){
@@ -83,12 +88,6 @@ spaControllers.controller('ProblemCtrl', ['$document', '$scope', '$routeParams',
 					};
 				}
 			}
-
-
 		});		
 	}
 ]);
-
-spaControllers.controller('FlashCtrl', ['$scope', function($scope) {
-	$scope.orderProp = 'age';
-}]);
