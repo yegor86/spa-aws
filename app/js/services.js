@@ -26,7 +26,7 @@ spaServices.factory('Problems', ['$resource', '$q',
                             answer: answer
                         }
                     };
-                    return cognito.sendDbRequest(db.put(item), function(){
+                    return cognito.sendAwsRequest(db.put(item), function(){
                         return saveAnswer(problemId, answer);
                     })
                 })
@@ -42,7 +42,27 @@ spaServices.factory('Problems', ['$resource', '$q',
                             problemId: problemId
                         }
                     };
-                    return cognito.sendDbRequest(db.get(item), function(){
+                    return cognito.sendAwsRequest(db.get(item), function(){
+                        return fetchAnswer(problemId);
+                    })
+                })
+            },
+
+            checkAnswer: function(problemId) {
+                return cognito.identity.then(function(identity) {
+                    var lambda = new AWS.Lambda();
+                    var params = {
+                        FunctionName: '',
+                        Payload: JSON.stringify({problemNumber: problemId})
+                    };
+                    var item = {
+                        TableName: 'problems',
+                        Key: {
+                            userId: identity.id,
+                            problemId: problemId
+                        }
+                    };
+                    return cognito.sendAwsRequest(db.get(item), function(){
                         return fetchAnswer(problemId);
                     })
                 })

@@ -47,7 +47,7 @@ cognito.awsRefresh = function() {
     return deferred.promise();
 }
 
-cognito.sendDbRequest = function(req, retry) {
+cognito.sendAwsRequest = function(req, retry) {
     var promise = new $.Deferred();
     req.on('error', function(error) {
         if (error.code === "CredentialsError") {

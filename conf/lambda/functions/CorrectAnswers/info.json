@@ -1,14 +1,14 @@
 {
-    "CodeSha256": "OfCV+4bpMdmHF/jEc3ptHZVu4JsMrC3qwm31ZjTPh8A=", 
+    "CodeSha256": "VavoHc8MQ2oRSMSRY2te87FoBe5Guf/PLvlRo0cwjck=", 
     "FunctionName": "CorrectAnswers", 
-    "CodeSize": 785449, 
+    "CodeSize": 785640, 
     "MemorySize": 128, 
     "FunctionArn": "arn:aws:lambda:us-east-1:655508188333:function:CorrectAnswers", 
     "Version": "$LATEST", 
     "Role": "arn:aws:iam::655508188333:role/lambda_dynamo", 
     "Timeout": 10, 
-    "LastModified": "2016-02-19T13:52:59.506+0000", 
-    "Handler": "index.echo", 
+    "LastModified": "2016-02-19T16:43:57.913+0000", 
+    "Handler": "index.checkAnswer", 
     "Runtime": "nodejs", 
     "Description": "Find correct answer for the given problem"
 }

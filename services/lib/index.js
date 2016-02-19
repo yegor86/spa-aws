@@ -9,6 +9,15 @@ var config = {
 
 exports.dynamodb = new AWS.DynamoDB.DocumentClient();
 
+var problems = [{
+    "description": "Are we alone?",
+    "code": "function problem(){return __;}"
+  },{
+    "description": "Do we have only one universe?",
+    "code": "function problem(){return 42 === 6*__;}"
+  }
+];
+
 function reduceItems(memo, items) {
   items.forEach(function(item) {
     memo[item.answer] = (memo[item.answer] || 0) + 1;
@@ -44,6 +53,28 @@ exports.popularAnswers = function(json, context) {
       context.fail(err);
     } else {
       context.succeed(filterItems(reduceItems({}, data.Items)));
+    }
+  });
+};
+
+exports.checkAnswer = function(json, context) {
+  exports.dynamodb.scan({
+    FilterExpression: "problemId = :problemId",
+    ExpressionAttributeValues: {
+      ":problemId": json.problemNumber
+    },
+    TableName: config.dynamoTableName
+  }, function(err, data) {
+    if (err) {
+      context.fail(err);
+    } else {
+      if (json.problemNumber < problems.length) {
+        var problemData = problems[json.problemNumber - 1];
+        var test = problemData.code.replace('__', json.answer) + '; problem();';        
+        context.succeed(eval(test));
+      } else {
+        context.succeed(false);
+      }
     }
   });
 };
