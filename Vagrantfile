@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
     spa.vm.synced_folder ".", "/mnt/spa", :create => true
     spa.vm.provision :shell, inline: $script
     spa.vm.provision :shell, :path => "vagrant-init/bootstrap.sh"
-    spa.vm.network "forwarded_port", guest: 9292, host: 9292
+    # spa.vm.network "forwarded_port", guest: 9292, host: 9292
 
   end
   

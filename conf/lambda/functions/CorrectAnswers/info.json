@@ -1,0 +1,14 @@
+{
+    "CodeSha256": "OfCV+4bpMdmHF/jEc3ptHZVu4JsMrC3qwm31ZjTPh8A=", 
+    "FunctionName": "CorrectAnswers", 
+    "CodeSize": 785449, 
+    "MemorySize": 128, 
+    "FunctionArn": "arn:aws:lambda:us-east-1:655508188333:function:CorrectAnswers", 
+    "Version": "$LATEST", 
+    "Role": "arn:aws:iam::655508188333:role/lambda_dynamo", 
+    "Timeout": 10, 
+    "LastModified": "2016-02-19T13:52:59.506+0000", 
+    "Handler": "index.echo", 
+    "Runtime": "nodejs", 
+    "Description": "Find correct answer for the given problem"
+}

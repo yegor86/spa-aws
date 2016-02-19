@@ -21,8 +21,8 @@
     "start": "http-server ./app -a 0.0.0.0 -p 9292",
 
     "pretest": "npm install",
-    "test": "node node_modules/karma/bin/karma start test/karma.conf.js",
-    "test-single-run": "node node_modules/karma/bin/karma start test/karma.conf.js  --single-run",
+    "test": "node node_modules/karma/bin/karma start test/karma.conf.js --single-run",
+    "test-single-run": "node node_modules/karma/bin/karma start test/karma.conf.js --single-run",
 
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",

@@ -7,8 +7,12 @@
     "angular": "1.4.x",
     "angular-mocks": "1.4.x",
     "angular-resource": "1.4.x",
+    "angular-route": "1.4.x",
     "jquery": "~2.1.4",
     "bootstrap": "~3.1.1",
-    "angular-route": "1.4.x"
+    "aws-sdk": "2.2.4"
+  },
+  "devDependencies": {
+    "jasmine": "2.4"
   }
 }
