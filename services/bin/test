@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-if [[ ! -x `which entr` ]]; then
-  echo "Cannot find entr (http://entrproject.org)."
-  exit 1
-fi
-
-find lib spec -name *.js | entr make test

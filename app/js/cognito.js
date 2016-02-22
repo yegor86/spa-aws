@@ -1,7 +1,7 @@
 // Cognito Module
 var cognito = {};
 cognito.identity = new $.Deferred();
-cognito.poolId = 'us-east-1:8b90d9aa-e71c-4ee7-afce-55d405aa4959';
+cognito.poolId = 'us-east-1:856002a7-c5f4-4547-887b-d918c3f9c59c';
 
 function googleSignIn(googleUser) {
     var id_token = googleUser.getAuthResponse().id_token;

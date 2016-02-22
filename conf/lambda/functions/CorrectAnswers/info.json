@@ -1,5 +1,5 @@
 {
-    "CodeSha256": "nYU9HeFogahGK9IkusMF1vR+5jj/LjSTMApBLwYSqxY=", 
+    "CodeSha256": "cGh6q2Y+YBz83vF0Touss0E7RCEgdz/xxTbdahVlYog=", 
     "FunctionName": "CorrectAnswers", 
     "CodeSize": 785648, 
     "MemorySize": 128, 
@@ -7,7 +7,7 @@
     "Version": "$LATEST", 
     "Role": "arn:aws:iam::655508188333:role/lambda_dynamo", 
     "Timeout": 10, 
-    "LastModified": "2016-02-19T16:50:31.344+0000", 
+    "LastModified": "2016-02-22T10:46:41.697+0000", 
     "Handler": "index.checkAnswer", 
     "Runtime": "nodejs", 
     "Description": "Find correct answer for the given problem"

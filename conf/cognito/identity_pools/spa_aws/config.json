@@ -1,6 +1,0 @@
-{
-    "AllowUnauthenticatedIdentities": false,
-    "SupportedLoginProviders": {
-        "accounts.google.com": "550756352790-jkkqroevqnu3204nj9u8cbam1geeb12v.apps.googleusercontent.com"
-    }
-}

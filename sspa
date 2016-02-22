@@ -4,7 +4,7 @@ abspath="$(cd "${0%/*}" 2>/dev/null; echo "$PWD"/"${0##*/}")"
 root_dir=`dirname "$abspath"`
 app_name=spa_aws
 code_bucket=${app_name}/_code_bundles
-profile=admin
+profile=spa-aws
 
 function check_python() {
   if ! which python > /dev/null; then
@@ -29,11 +29,6 @@ function check_node_deps() {
     echo "This action requires Node.js and NPM."
     exit 1
   fi
-}
-
-function dev_server() {
-  cd public
-  exec python -m SimpleHTTPServer 9292
 }
 
 function create_s3_bucket() {
@@ -206,17 +201,6 @@ function deploy_bundle {
   done
 }
 
-function test_services() {
-  check_node_deps
-  cd services
-  if [[ ! -x node_modules/.bin/jasmine ]]; then
-    npm install || exit 1
-  fi
-  export PATH=node_modules/.bin:${PATH}
-  NODE_PATH=./lib jasmine
-  cd ..
-}
-
 function create_iam_role() {
   local role_name="${app_name}_lambda_exec"
   local role_dir=conf/iam/roles/${role_name}
@@ -275,14 +259,6 @@ check_python
 check_aws
 
 case "$action" in
-  server)
-    dev_server
-    ;;
-
-  test)
-    test_services
-    ;;
-
   build_bundle)
     build_bundle
     ;;

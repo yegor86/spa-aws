@@ -8,9 +8,10 @@ sudo pip install awscli
 # dos2unix /mnt/spa/sspa /mnt/spa/sspa
 find /mnt/spa -type f -exec dos2unix {} \;
 
-#aws configure --profile admin
-
 # Install notejs
 curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 sudo apt-get install -y nodejs
 sudo apt-get install -y zip
+
+# Chdir to the project directory 
+echo "cd /mnt/spa" >> /home/vagrant/.bashrc
