@@ -6,3 +6,4 @@
 * [Create Identity Pool](docs/CreateIdentityPool.md)
 * [Configure DynamoDb access and tables](docs/DynamoDB.md)
 * [Configure Lambda access and deploy Lambda service](docs/Lambda.md)
+* [Launch Application](docs/LaunchApp.md)
