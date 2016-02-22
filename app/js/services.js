@@ -48,22 +48,18 @@ spaServices.factory('Problems', ['$resource', '$q',
                 })
             },
 
-            checkAnswer: function(problemId) {
+            checkAnswer: function(problemId, answer) {
                 return cognito.identity.then(function(identity) {
                     var lambda = new AWS.Lambda();
                     var params = {
-                        FunctionName: '',
-                        Payload: JSON.stringify({problemNumber: problemId})
-                    };
-                    var item = {
-                        TableName: 'problems',
-                        Key: {
-                            userId: identity.id,
-                            problemId: problemId
-                        }
-                    };
-                    return cognito.sendAwsRequest(db.get(item), function(){
-                        return fetchAnswer(problemId);
+                        FunctionName: 'CorrectAnswers',
+                        Payload: JSON.stringify({
+                            problemNumber: problemId,
+                            answer: answer
+                        })
+                    };                    
+                    return cognito.sendAwsRequest(lambda.invoke(params), function(){
+                        return checkAnswer(problemId, answer);
                     })
                 })
             }

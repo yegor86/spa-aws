@@ -68,7 +68,7 @@ exports.checkAnswer = function(json, context) {
     if (err) {
       context.fail(err);
     } else {
-      if (json.problemNumber < problems.length) {
+      if (json.problemNumber > 0 && json.problemNumber <= problems.length) {
         var problemData = problems[json.problemNumber - 1];
         var test = problemData.code.replace('__', json.answer) + '; problem();';        
         context.succeed(eval(test));

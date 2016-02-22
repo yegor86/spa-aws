@@ -60,20 +60,22 @@ spaControllers.controller('ProblemCtrl', ['$document', '$scope', '$routeParams',
 
         	$scope.checkAnswerClick = function () {				
 				$scope.templateUrl = 'partials/correct-flash.html';
-	            $scope.flash = buildAnswer();
-	            if (checkAnswer()) {            		
-					$scope.flash.answer = 'Correct!';
-					Problems.saveAnswer(problemNumber, $scope.answer);
-				} else {
-				 	$scope.flash.answer = 'Incorrect!';
-				 	$scope.flash.text = '';
-				}
-	        };
-
-        	function checkAnswer(){
-				var test = problemData.code.replace('__', $scope.answer) + '; problem();';
-				return eval(test);
-			}
+	            Problems.checkAnswer(problemNumber, $scope.answer).then(function(result) {            		
+						
+	            	$scope.flash = buildAnswer();
+	            	if (result.Payload === 'true') {
+						$scope.$apply(function () {
+							$scope.flash.answer = 'Correct!';
+						});
+						Problems.saveAnswer(problemNumber, $scope.answer);
+					} else {
+					 	$scope.$apply(function () {
+					 		$scope.flash.answer = 'Incorrect!';
+					 		$scope.flash.text = '';
+					 	});
+					}
+				});
+	        }
 
 			function buildAnswer() {
 				if (problemNumber < problems.length) {
