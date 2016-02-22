@@ -2,8 +2,7 @@
 
 abspath="$(cd "${0%/*}" 2>/dev/null; echo "$PWD"/"${0##*/}")"
 root_dir=`dirname "$abspath"`
-app_name=spa_aws
-code_bucket=${app_name}/_code_bundles
+app_name=spa
 profile=spa-aws
 
 function check_python() {
@@ -197,12 +196,13 @@ function deploy_bundle {
   for fn in `ls conf/lambda/functions`; do
     aws lambda update-function-code \
       --function-name $fn \
+      --region us-east-1 \
       --zip-file "fileb://services/archive.zip" > conf/lambda/functions/$fn/info.json
   done
 }
 
 function create_iam_role() {
-  local role_name="${app_name}_lambda_exec"
+  local role_name="${app_name}_lambda_authenticated"
   local role_dir=conf/iam/roles/${role_name}
   local policy_document=$2
   mkdir -p $role_dir
@@ -217,8 +217,9 @@ function create_iam_role() {
 function create_lambda_service() {
   local service_dir=${1%/}
   local function_name=$(basename $service_dir)
+  # local function_name = "checkAnswer"
   create_iam_role lambda_exec "file://conf/iam/policies/lambda_trust.json"
-  local role_arn=$(support/jsed.py conf/iam/roles/spa_aws_lambda_exec/info.json 'Role.Arn')
+  local role_arn=$(support/jsed.py conf/iam/roles/spa_lambda_authenticated/info.json 'Role.Arn')
   if [[ ! -e ${service_dir}/info.json ]]; then
     aws lambda create-function \
       --function-name ${function_name} \
@@ -226,6 +227,7 @@ function create_lambda_service() {
       --zip-file "fileb://services/archive.zip" \
       --handler "index.${function_name}" \
       --cli-input-json "file://${service_dir}/config.json" \
+      --region us-east-1 \
       > ${service_dir}/info.json
   fi
 }
