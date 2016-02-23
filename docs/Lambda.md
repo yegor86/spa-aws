@@ -4,6 +4,7 @@
 ```bash
  $ ./sspa build_bundle
 ```
+
 2. Go to AWS Lambda Console: Services | All AWS Services | Compute | Lambda
 3. Choose _microservice-http-endpoint_ blueprint
 	* Name function as _checkAnswer_ 

@@ -16,12 +16,13 @@ $ cd /mnt/spa
 ```
 
 4. [Create Administrative user for AWS](CreateAWSUser.md)
-
 5. Configure AWS profile
 ```bash
 $ aws configure --profile spa-aws
+
+# Enter the access keys when prompted. Enter _us-east-1_ as default region
 ```
-Enter the access keys when prompted. Enter _us-east-1_ as default region
+
 
 
 
