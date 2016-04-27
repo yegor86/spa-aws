@@ -19,5 +19,5 @@
 11. Update Google metadata in _app/index.html_
 
 ```html
-<meta name="google-signin-client_id" content="105303240909-s1498bdjvam1nkfpr1fmo9d2bce5pbkv.apps.googleusercontent.com"/>
+<meta name="google-signin-client_id" content="${app.uid}.apps.googleusercontent.com"/>
 ```

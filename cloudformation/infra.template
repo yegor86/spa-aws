@@ -1,0 +1,68 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Description": "AWS CloudFormation Template for Single Page Application",
+  "Parameters" : {
+    "IdentityPoolArnParameter" : {
+      "Type" : "String",
+      "Description" : "Identity Pool ARN"
+    }
+  },
+  "Resources" : {
+    "DynamoDBTable" : {
+      "Type" : "AWS::DynamoDB::Table",
+      "Properties" : {
+        "AttributeDefinitions" : [
+          {
+            "AttributeName" : "problemId",
+            "AttributeType" : "N"   
+          },
+          {
+            "AttributeName" : "userId",
+            "AttributeType" : "S"
+          }
+        ],
+        "KeySchema" : [
+          {
+            "AttributeName" : "problemId",
+            "KeyType" : "HASH"
+          },
+          {
+            "AttributeName" : "userId",
+            "KeyType" : "RANGE"
+          }
+        ],
+        "TableSizeBytes": 0, 
+        "TableName": "problems", 
+        "TableStatus": "CREATING",
+        "ProvisionedThroughput" : {
+          "ReadCapacityUnits" : "5",
+          "WriteCapacityUnits" : "5"
+        }
+      }
+    },
+    "DynamoDbPolicy" : {
+      "Type" : "AWS::IAM::Policy",
+      "Properties" : {
+          "PolicyDocument" : {
+            "Version": "2012-10-17",
+            "Statement": [{
+                "Sid": "",
+                "Effect": "Allow",
+                "Principal": {
+                  "Federated": "cognito-identity.amazonaws.com"
+                },
+                "Action": "sts:AssumeRoleWithWebIdentity",
+                "Condition": {
+                  "StringEquals": {
+                    "cognito-identity.amazonaws.com:aud": { "Ref" : "IdentityPoolArnParameter" }
+                  },
+                  "ForAnyValue:StringLike": {
+                    "cognito-identity.amazonaws.com:amr": "authenticated"
+                  }
+                }
+            }]
+          }
+        }
+    }  
+  }  
+}
