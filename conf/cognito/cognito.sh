@@ -64,7 +64,8 @@ function create_identity_pool() {
   	exit 1
   fi
   local pool_id=$($SOURCE_DIR/jsed.py $TARGET_DIR/pool_info.json 'IdentityPoolId')
-  echo "Pool id: $pool_id, Pool name: ${identity_pool_name}" 
+  echo "Pool id: ${pool_id}, Pool name: ${identity_pool_name}" 
+  
   create_cognito_auth_role ${pool_id} ${identity_pool_name}
   
   local role_arn=$($SOURCE_DIR/jsed.py $TARGET_DIR/role_info.json 'Role.Arn')
