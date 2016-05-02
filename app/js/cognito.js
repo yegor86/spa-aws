@@ -1,7 +1,9 @@
 // Cognito Module
+var config = require('./config')
+
 var cognito = {};
 cognito.identity = new $.Deferred();
-cognito.poolId = 'us-east-1:856002a7-c5f4-4547-887b-d918c3f9c59c';
+cognito.poolId = config.cognito.poolId;
 
 function googleSignIn(googleUser) {
     var id_token = googleUser.getAuthResponse().id_token;

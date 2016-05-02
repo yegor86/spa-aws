@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-source common.sh
-SOURCE_DIR=.
 TARGET_DIR=target
+SOURCE_DIR=.
 
 function create_cognito_auth_role() {
   local pool_id=${1}
@@ -47,6 +46,7 @@ DOC
 
 function create_identity_pool() {
   local identity_pool_dir=${1%/}
+  
   if [[ ! -e $SOURCE_DIR/config.json ]]; then
     echo "Can't find pool config file $SOURCE_DIR/config.json"
     exit 1
@@ -75,10 +75,14 @@ function create_identity_pool() {
     --roles authenticated=${role_arn}
 }
 
-if [[ $# -eq 1 ]]; then
+if [[ $# -eq 2 ]]; then
+  pushd ${2}
+  source ../common.sh
   mkdir $TARGET_DIR
   create_identity_pool ${1}
+  popd
 else
-  echo "Please specify a Cognito identity pool name" 
+  echo "Please specify a Cognito identity pool name and source directory" 
+  echo "Usage: cognito id_pool /home/user/spa-aws/config/cognito"
   exit 1
 fi

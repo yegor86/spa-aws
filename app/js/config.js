@@ -1,0 +1,3 @@
+cognito = {
+    "poolId": "tttttttttttttt"
+}
