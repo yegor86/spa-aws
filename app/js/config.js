@@ -1,3 +1,3 @@
 cognito = {
-    'poolId': 'us-east-1:4382e86e-2fe4-42c0-be4f-81f1e6b31742'
+    'poolId': 'us-east-1:64bf0f61-7d6b-446e-9481-e1b7c10b10f9'
 }
