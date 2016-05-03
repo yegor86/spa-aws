@@ -3,7 +3,7 @@ variable "aws_profile" {
 } 
  
 variable "aws_region" {
-    default = "eu-west-1"
+    default = "us-east-1"
 }
 
 variable "identity_pool_name" {
