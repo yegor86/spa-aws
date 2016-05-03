@@ -1,3 +1,3 @@
 cognito = {
-    "poolId": "#poolId"
+    'poolId': '#poolId'
 }

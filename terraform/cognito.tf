@@ -7,10 +7,12 @@ resource "null_resource" "create_identity_pool" {
 
 resource "template_file" "config" {
     template = "${file("${path.module}/../app/js/config.js.tpl")}"
- 
+    vars {}
 }
 
 resource "null_resource" "config" {
+    depends_on = ["null_resource.create_identity_pool"]
+
     provisioner "local-exec" {
         command =<<EOF
 echo "${replace(template_file.config.rendered, "#poolId", "$(${path.module}/../conf/cognito/jsed.py ${path.module}/../conf/cognito/target/pool_info.json 'IdentityPoolId')")}" > ${path.module}/../app/js/config.js
