@@ -9,3 +9,7 @@ variable "aws_region" {
 variable "identity_pool_name" {
     default = "id_pool1"
 }
+
+variable "lambda_name" {
+    default = "checkAnswer"
+}
