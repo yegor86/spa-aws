@@ -19,7 +19,11 @@ unzip terraform_0.6.15_linux_amd64.zip -d terraform
 echo "PATH=$PATH:~/terraform" >> ~/.bash_profile
 
 # Instll apex.run
-curl -s https://raw.githubusercontent.com/apex/apex/master/install.sh | bash
+sudo wget https://github.com/apex/apex/releases/download/v0.8.0/apex_linux_amd64
+sudo chmod +x apex_linux_amd64
+mkdir apex
+mv apex_linux_amd64 apex/apex
+echo "PATH=$PATH:~/apex" >> ~/.bash_profile
 
 # Chdir to the project directory 
 echo "cd /mnt/spa" >> ~/.bashrc
