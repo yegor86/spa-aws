@@ -1,7 +1,7 @@
 {
   "name": "spa",
   "description": "Simple Page Application with AWS",
-  "role": "arn:aws:iam::655508188333:role/iam_for_lambda",
+  "role": "${iam_role}",
   "memory": 128,
   "region": "us-east-1"
 }

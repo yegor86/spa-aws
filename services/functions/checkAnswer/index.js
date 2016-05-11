@@ -7,8 +7,8 @@ let dynamo = new doc.DynamoDB();
 /**
  * Provide an event that contains the following keys:
  *
- *   - operation: one of the operations in the switch statement below
- *   - tableName: required for operations that interact with DynamoDB
+ *   - problemId: Problem Identifier
+ *   - answer: Problem Answer
  *   - payload: a parameter to pass to the operation being performed
  */
 exports.handler = (event, context, callback) => {
@@ -45,4 +45,26 @@ exports.handler = (event, context, callback) => {
         default:
             callback(new Error(`Unrecognized operation "${operation}"`));
     }
+
+    /*
+    exports.dynamodb.scan({
+-    FilterExpression: "problemId = :problemId",
+-    ExpressionAttributeValues: {
+-      ":problemId": json.problemNumber
+-    },
+-    TableName: config.dynamoTableName
+-  }, function(err, data) {
+-    if (err) {
+-      context.fail(err);
+-    } else {
+-      if (json.problemNumber > 0 && json.problemNumber <= problems.length) {
+-        var problemData = problems[json.problemNumber - 1];
+-        var test = problemData.code.replace('__', json.answer) + '; problem();';        
+-        context.succeed(eval(test));
+-      } else {
+-        context.succeed(false);
+-      }
+-    }
+-  });
+    */
 };
