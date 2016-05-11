@@ -4,6 +4,14 @@ console.log('Loading function');
 let doc = require('dynamodb-doc');
 let dynamo = new doc.DynamoDB();
 
+
+var problems = [{
+    "description": "Are we alone?",
+    "code": "function problem(){return __;}"
+},{
+    "description": "Do we have only one universe?",
+    "code": "function problem(){return 42 === 6*__;}"
+}];
 /**
  * Provide an event that contains the following keys:
  *
@@ -20,31 +28,55 @@ exports.handler = (event, context, callback) => {
         event.payload.TableName = event.tableName;
     }
 
-    switch (operation) {
-        case 'create':
-            dynamo.putItem(event.payload, callback);
-            break;
-        case 'read':
-            dynamo.getItem(event.payload, callback);
-            break;
-        case 'update':
-            dynamo.updateItem(event.payload, callback);
-            break;
-        case 'delete':
-            dynamo.deleteItem(event.payload, callback);
-            break;
-        case 'list':
-            dynamo.scan(event.payload, callback);
-            break;
-        case 'echo':
-            callback(null, event.payload);
-            break;
-        case 'ping':
-            callback(null, 'pong');
-            break;
-        default:
-            callback(new Error(`Unrecognized operation "${operation}"`));
-    }
+    let params = {
+        TableName : "problems",
+        KeyConditionExpression: "problemId = :problemId",
+        ExpressionAttributeValues: {
+            ":problemId":event.problemId
+        }
+    };
+
+    dynamo.query(params, function(err, data) {
+        if (err) {
+            console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("Query succeeded.");
+            
+            if (event.problemId > 0 && event.problemId <= problems.length) {
+                let problemData = problems[event.problemId - 1];
+                let test = problemData.code.replace('__', event.answer) + '; problem();';        
+                context.succeed(eval(test));
+            } else {
+                context.succeed(false);
+            }
+        }
+    });
+
+    // switch (operation) {
+    //     case 'create':
+    //         dynamo.putItem(event.payload, callback);
+    //         break;
+    //     case 'read':
+    //         dynamo.getItem(event.payload, callback);
+    //         break;
+    //     case 'update':
+    //         dynamo.updateItem(event.payload, callback);
+    //         break;
+    //     case 'delete':
+    //         dynamo.deleteItem(event.payload, callback);
+    //         break;
+    //     case 'list':
+    //         dynamo.scan(event.payload, callback);
+    //         break;
+    //     case 'echo':
+    //         callback(null, event.payload);
+    //         break;
+    //     case 'ping':
+    //         callback(null, 'pong');
+    //         break;
+    //     default:
+    //         callback(new Error(`Unrecognized operation "${operation}"`));
+    // }
 
     /*
     exports.dynamodb.scan({
