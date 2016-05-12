@@ -1,0 +1,22 @@
+{
+    "problems": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "problemId": {"N":"1"},
+                    "Description": {"S":"Are we alone"},
+                    "Code": {"S":"function problem(){return __;}"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "problemId": {"N":"2"},
+                    "Description": {"S":"Do we have only one universe?"},
+                    "Code": {"S":"function problem(){return 42 === 6*__;}"}
+                }
+            }
+        }
+    ]
+}

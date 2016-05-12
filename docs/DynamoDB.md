@@ -1,8 +1,6 @@
-## Configure DynamoDb access and tables
-1. Create table 'problems'
+## Configure DynamoDb
+1. Populate table 'problems'
 
-```bash
-$ ./sspa create_table conf/dynamodb/tables/problems/ spa
-
-# where spa is the identity pool
+```
+$ aws dynamodb batch-write-item --request-items file://conf/dynamodb/sampledata/Problems.json
 ```

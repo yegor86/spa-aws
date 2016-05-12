@@ -2,16 +2,11 @@ resource "aws_dynamodb_table" "problems" {
     name = "problems"
     read_capacity = 5
     write_capacity = 5
-    hash_key = "userId"
-    range_key = "problemId"
-    attribute {
-      name = "userId"
-      type = "S"
-    }
+    hash_key = "problemId"    
     attribute {
       name = "problemId"
       type = "N"
-    }  
+    }      
 }
 
 resource "aws_iam_role_policy" "dynamodb_access_policy" {
