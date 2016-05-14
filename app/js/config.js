@@ -1,3 +1,3 @@
-cognito = {
-    'poolId': 'us-east-1:64bf0f61-7d6b-446e-9481-e1b7c10b10f9'
+var vars = { 
+	'poolId': 'us-east-1:60eb9360-a8b8-48fd-8b9e-21afb2f0c5c3'
 }

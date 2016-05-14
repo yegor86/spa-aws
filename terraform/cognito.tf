@@ -1,4 +1,5 @@
 resource "null_resource" "create_identity_pool" {
+    depends_on = ["template_file.login_provider_config"]
     provisioner "local-exec" {
         command = "${path.module}/../conf/cognito/cognito.sh create_pool ${var.identity_pool_name} ${path.module}/../conf/cognito"
     }

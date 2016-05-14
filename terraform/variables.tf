@@ -13,3 +13,7 @@ variable "identity_pool_name" {
 variable "lambda_name" {
     default = "checkAnswer"
 }
+
+variable "login_provider" {
+	default = "105303240909-s1498bdjvam1nkfpr1fmo9d2bce5pbkv.apps.googleusercontent.com"
+}

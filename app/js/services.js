@@ -36,7 +36,7 @@ spaServices.factory('Problems', ['$resource', '$q',
                 return cognito.identity.then(function(identity) {
                     var db = new AWS.DynamoDB.DocumentClient();
                     var item = {
-                        TableName: 'problems',
+                        TableName: 'answers',
                         Key: {
                             userId: identity.id,
                             problemId: problemId

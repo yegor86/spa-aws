@@ -1,3 +1,3 @@
-cognito = {
-    'poolId': '#poolId'
+var vars = { 
+	'poolId': '#poolId'
 }
