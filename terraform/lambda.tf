@@ -53,6 +53,28 @@ resource "aws_iam_role_policy" "iam_policy_for_lambda" {
 EOF
 }
 
+resource "aws_iam_role_policy" "iam_policy_invoke_function" {
+    name = "iam_policy_invoke_function"
+    role = "${aws_iam_role.cognito_role.id}"
+    policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1463323629000",
+            "Effect": "Allow",
+            "Action": [
+                "lambda:InvokeFunction"
+            ],
+            "Resource": [
+                "arn:aws:lambda:us-east-1:*"
+            ]
+        }
+    ]
+}
+EOF
+}
+
 resource "template_file" "generated_project_config" {
     depends_on = ["aws_iam_role.iam_role_for_lambda"]
     template = "${file("${path.module}/../services/project.json.tpl")}"
