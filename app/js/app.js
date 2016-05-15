@@ -5,7 +5,8 @@
 var spa = angular.module('spa', [
   'ngRoute',
   'spaControllers',
-  'spaServices'
+  'spaServices',
+  'signInButton'
 ]);
 
 spa.config(['$routeProvider',

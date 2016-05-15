@@ -19,7 +19,7 @@ spaServices.factory('Problems', ['$resource', '$q',
                 return cognito.identity.then(function(identity) {
                     var db = new AWS.DynamoDB.DocumentClient();
                     var item = {
-                        TableName: 'problems',
+                        TableName: 'answers',
                         Item: {
                             userId: identity.id,
                             problemId: problemId,
@@ -54,7 +54,7 @@ spaServices.factory('Problems', ['$resource', '$q',
                     var params = {
                         FunctionName: 'spa_checkAnswer',
                         Payload: JSON.stringify({
-                            problemNumber: problemId,
+                            problemId: problemId,
                             answer: answer
                         })
                     };                    

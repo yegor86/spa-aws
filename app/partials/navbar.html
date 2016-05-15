@@ -1,0 +1,21 @@
+<script src='https://apis.google.com/js/platform.js' async defer></script>
+<div class='nav-container no-select fixed-top u-full-width'>
+  <ul id='nav-bar' class='inline-list hover-links nav-list six columns' ng-controller='NavCtrl'>
+    <li ng-repeat='item in items'>
+      <a class='{{item.class}}' href='{{item.href}}'>{{item.text}}</a>
+    </li>
+    <li class='skip-btn'>
+      <a ng-href='#/{{skipBtn.href}}'>{{skipBtn.name}}</a>
+    </li>
+  </ul>
+  <div class='four colums signin-bar' ng-controller='ProfileCtrl'>
+    <span class='profile-link navbar-padding-lg'>
+      <a href='#/profile'>{{email}}</a>
+    </span>    
+    <span class='navbar-padding u-pull-right'>
+      <google-sign-in-button button-id="uniqueid" options="options"></google-sign-in-button>
+      <!-- <span class='g-signin2' data-onsuccess='googleSignIn'></span> -->
+    </span>
+  </div>
+  <div id="my-signin2"></div>
+</div>

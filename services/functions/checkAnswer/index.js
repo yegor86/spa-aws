@@ -16,7 +16,7 @@ exports.handler = (event, context, callback) => {
 
     dynamo.query(params, function(err, data) {
         if (err) {
-            console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
+            callback(Error("Unable to query: " + JSON.stringify(event) + " .Error:" + JSON.stringify(err)));
         } else {
             if (data.Items.length > 0) {
                 let test = data.Items[0].Code.replace('__', event.answer) + '; problem();';        
