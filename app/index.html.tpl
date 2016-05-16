@@ -19,12 +19,11 @@
 	<script src="js/google-signin-button.js"></script>
 
   	<!-- Google Login -->
-  	<meta name='google-signin-client_id' content='${login_provider}'/>
-  	
+  	<meta name='google-signin-client_id' content='${login_provider}'/>  	
   	<script src='https://apis.google.com/js/platform.js' async defer></script>
 </head>
 <body>
-  	<div ng-include="'partials/navbar.html'"></div>
+  	<div ng-include=\"'partials/navbar.html'\"></div>
 	<div class = 'container'>
 		<div class='view-container' ng-view></div>
 	</div>

@@ -7,12 +7,19 @@ spaServices.factory('Problems', ['$resource', '$q',
     function($resource, $q) {
         
         return {
-            getData: function() {
-                var defer = $q.defer();
-                $resource('resources/problems.json', {cache: 'true'}).query(function(data){
-                    defer.resolve(data);
-                });
-                return defer.promise;
+            getData: function(problemId) {
+                return cognito.identity.then(function(identity) {
+                    var db = new AWS.DynamoDB.DocumentClient();
+                    var item = {
+                        TableName: 'problems',
+                        Key: {
+                            problemId: problemId
+                        }
+                    };
+                    return cognito.sendAwsRequest(db.get(item), function(){
+                        return getData(problemId);
+                    })
+                })
             },
 
             saveAnswer: function(problemId, answer) {
@@ -64,12 +71,6 @@ spaServices.factory('Problems', ['$resource', '$q',
                 })
             }
         };
-    }
-]);
-
-spaServices.factory('MenuItems', ['$resource',
-    function($resource) {
-        return $resource('resources/menu-items.json', {cache: 'true'});
     }
 ]);
 

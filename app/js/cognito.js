@@ -22,7 +22,7 @@ function googleSignIn(googleUser) {
               var creds = AWS.config.credentials;
               var newToken = userUpdate.getAuthResponse().id_token;
               creds.params.Logins['accounts.google.com'] = newToken;
-              return awsRefresh();
+              return cognito.awsRefresh();
           });
     }
 

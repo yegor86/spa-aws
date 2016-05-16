@@ -29,27 +29,22 @@ spaControllers.controller('LandingCtrl', ['$scope', function($scope) {
 spaControllers.controller('ProblemCtrl', ['$document', '$scope', '$routeParams', 'Problems',
 	function($document, $scope, $routeParams, Problems) {
 		$scope.problemId = $routeParams.problemId;	
-		var problemNumber = parseInt($routeParams.problemId, 10);
-		$scope.problemName = 'Problem #' + problemNumber;	
+		$scope.problemName = 'Problem #' + $routeParams.problemId;	
 		
+		var problemNumber = parseInt($routeParams.problemId, 10);		
 		Problems.fetchAnswer(problemNumber).then(function(data) {
-		    if (data.Item) {
-		    	$scope.$apply(function () {
-		    		$scope.answer = data.Item.answer;
-                });
-		    } else {
-		    	$scope.$apply(function () {
-					$scope.answer = '';    	
-                });
-		    }
+	    	$scope.$apply(function () {
+	    		$scope.answer = data.Item? data.Item.answer: '';
+            });
 		});
 
-		Problems.getData().then(function(problems) {
-			var problemData = problems[problemNumber - 1];
-        	$scope.description = problemData.description;
-        	$scope.code = problemData.code;
+		Problems.getData(problemNumber).then(function(data) {
+        	$scope.$apply(function () {
+	        	$scope.description = data.Item.Description;
+	        	$scope.code = data.Item.Code;
+			});
 
-        	if (problemNumber < problems.length) {
+        	if (!data.Item.Last) {
         		angular.element($document[0].getElementById('nav-bar')).scope().skipBtn = {
         			name: 'Skip This Problem',
         			href: 'problems/' + (problemNumber + 1)
@@ -62,7 +57,7 @@ spaControllers.controller('ProblemCtrl', ['$document', '$scope', '$routeParams',
 				$scope.templateUrl = 'partials/correct-flash.html';
 	            Problems.checkAnswer(problemNumber, $scope.answer).then(function(result) {            		
 						
-	            	$scope.flash = buildAnswer();
+	            	$scope.flash = buildAnswer(data);
 	            	if (result.Payload === 'true') {
 						$scope.$apply(function () {
 							$scope.flash.answer = 'Correct!';
@@ -75,21 +70,20 @@ spaControllers.controller('ProblemCtrl', ['$document', '$scope', '$routeParams',
 					 	});
 					}
 				});
-	        }
-
-			function buildAnswer() {
-				if (problemNumber < problems.length) {
-					return {
-						href: 'problems/' + (problemNumber + 1),
-						text: 'Next Problem'
-					};
-				} else {
-					return {
-						href: '',
-						text: 'You are finished'
-					};
-				}
+	        }			
+		});	
+		function buildAnswer(data) {
+			if (!data.Item.Last) {
+				return {
+					href: 'problems/' + (problemNumber + 1),
+					text: 'Next Problem'
+				};
+			} else {
+				return {
+					href: '',
+					text: 'You are finished'
+				};
 			}
-		});		
+		}	
 	}
 ]);

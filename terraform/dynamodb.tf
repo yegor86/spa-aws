@@ -25,14 +25,10 @@ resource "aws_iam_role_policy" "dynamodb_access_policy" {
         "dynamodb:GetItem",
         "dynamodb:PutItem",
         "dynamodb:Query",
+        "dynamodb:Scan",
         "dynamodb:UpdateItem"
       ],
-      "Resource": ["${aws_dynamodb_table.problems.arn}"],
-      "Condition": {
-        "ForAllValues:StringEquals": {
-          "dynamodb:LeadingKeys": ["$${cognito-identity.amazonaws.com:sub}"]
-        }
-      }
+      "Resource": ["${aws_dynamodb_table.problems.arn}"]
   }]
 }
 EOF
@@ -70,6 +66,7 @@ resource "aws_iam_role_policy" "tbl_answers_access_policy" {
         "dynamodb:GetItem",
         "dynamodb:PutItem",
         "dynamodb:Query",
+        "dynamodb:Scan",
         "dynamodb:UpdateItem"
       ],
       "Resource": ["${aws_dynamodb_table.answers.arn}"],
