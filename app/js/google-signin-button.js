@@ -2,8 +2,8 @@
 
 var app = angular.module('signInButton', []);
 
-app.controller('MainController', ['$scope',
-    function($scope) {
+app.controller('MainController', ['$scope', '$window',
+    function($scope, $window) {
 		//for more options visit 
 		// https://developers.google.com/identity/sign-in/web/reference#gapisignin2renderwzxhzdk114idwzxhzdk115_wzxhzdk116optionswzxhzdk117
 		$scope.options = {
@@ -15,6 +15,11 @@ app.controller('MainController', ['$scope',
 			auth2.signOut().then(function () {
 				console.log('User signed out.');
 			});
+			$window.location.reload();
+		}
+
+		$scope.isSignedIn = function () {
+			return gapi.auth2? gapi.auth2.getAuthInstance().isSignedIn.get(): false;
 		}
     }
   ])

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang='en' ng-app='spa' ng-controller="MainController">
+<html lang='en' ng-app='spa' ng-controller='MainController'>
 <head>
 	<meta charset='utf-8'>
 	<title>Single Page Application with AWS</title>

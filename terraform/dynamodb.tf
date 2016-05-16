@@ -20,13 +20,8 @@ resource "aws_iam_role_policy" "dynamodb_access_policy" {
       "Effect": "Allow",
       "Action": [
         "dynamodb:BatchGetItem",
-        "dynamodb:BatchWriteItem",
-        "dynamodb:DeleteItem",
         "dynamodb:GetItem",
-        "dynamodb:PutItem",
-        "dynamodb:Query",
-        "dynamodb:Scan",
-        "dynamodb:UpdateItem"
+        "dynamodb:Query"
       ],
       "Resource": ["${aws_dynamodb_table.problems.arn}"]
   }]

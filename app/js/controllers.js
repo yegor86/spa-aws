@@ -39,19 +39,22 @@ spaControllers.controller('ProblemCtrl', ['$document', '$scope', '$routeParams',
 		});
 
 		Problems.getData(problemNumber).then(function(data) {
+        	if (!data.Item) {
+        		return;
+        	}
+
         	$scope.$apply(function () {
 	        	$scope.description = data.Item.Description;
 	        	$scope.code = data.Item.Code;
+	        	if (!data.Item.Last) {
+	        		angular.element($document[0].getElementById('nav-bar')).scope().skipBtn = {
+	        			name: 'Skip This Problem',
+	        			href: 'problems/' + (problemNumber + 1)
+	        		};
+				} else {
+					angular.element($document[0].getElementById('nav-bar')).scope().skipBtn = null;				
+				}
 			});
-
-        	if (!data.Item.Last) {
-        		angular.element($document[0].getElementById('nav-bar')).scope().skipBtn = {
-        			name: 'Skip This Problem',
-        			href: 'problems/' + (problemNumber + 1)
-        		};
-			} else {
-				angular.element($document[0].getElementById('nav-bar')).scope().skipBtn = null;				
-			}
 
         	$scope.checkAnswerClick = function () {				
 				$scope.templateUrl = 'partials/correct-flash.html';

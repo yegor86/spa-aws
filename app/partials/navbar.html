@@ -16,17 +16,17 @@
         <a ng-href='#/{{skipBtn.href}}'>{{skipBtn.name}}</a>
       </li>
     </ul>
-    <div class='nav navbar-nav navbar-right' ng-controller='ProfileCtrl'>
+    <div ng-show="isSignedIn()" class='nav navbar-nav navbar-right' ng-controller='ProfileCtrl'>
       <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{email}}
         <span class="caret"></span></button>
         <ul class="dropdown-menu">
-          <li><a href='#/profile'>{{email}}</a></li>
+          <li><a href='#/profile'>My Profile</a></li>
           <li><a href="#" ng-click='signOut()'>Sign out</a></li>
         </ul>
       </div>
     </div>
-    <div class='nav navbar-nav navbar-right'>
+    <div ng-show="!isSignedIn()" class='nav navbar-nav navbar-right'>
       <google-sign-in-button button-id="uniqueid" options="options"></google-sign-in-button>
     </div>
   </div>
