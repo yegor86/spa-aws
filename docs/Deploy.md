@@ -2,6 +2,6 @@
 
 1. Run Terraform script
 ```
-$  cd terraform
+$ cd terraform
 $ terraform apply
 ```

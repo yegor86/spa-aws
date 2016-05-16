@@ -1,10 +1,10 @@
 ## Build nad run application
-1. Build applcation
+1\. Build applcation
 
 ```
 $ npm install
 ```
-2. Run application
+2\. Run application
 
 ```
 $ npm start

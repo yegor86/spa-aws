@@ -8,4 +8,9 @@
 7. Dowload the credentials when prompted
 8. Get to the user summary page
 9. Click on Permissions tab
-10. Attach Policy - AdministratorAccess
+10. Attach Policy button | Select _AdministratorAccess_
+11. Create User Policy button | Policy Generator | 
+	* Effect=Allow 
+	* AWS Service=AWS Identity and Access management
+	* Actions=All Actions
+	* ARN=*
