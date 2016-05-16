@@ -3,7 +3,6 @@
 <head>
 	<meta charset='utf-8'>
 	<title>Single Page Application with AWS</title>
-	<link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
 	<script src='bower_components/angular/angular.js'></script>
 	<script src='bower_components/angular-route/angular-route.js'></script>
 	<script src='bower_components/angular-resource/angular-resource.js'></script>

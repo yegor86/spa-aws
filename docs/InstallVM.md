@@ -14,7 +14,7 @@ $ vagrant ssh spa
 4\. Configure AWS profile
 
 ```bash
-5 aws configure --profile spa-aws
+5 aws configure --profile spa
 
 # Enter the access keys when prompted. Enter _us-east-1_ as default region
 ```

@@ -1,11 +1,11 @@
-## Launch Application
-1. To run test execute
+## Build nad run application
+1. Build applcation
 
-```bash
-		$ npm test
 ```
-2. To run application
+$ npm install
+```
+2. Run application
 
-```bash
+```
 $ npm start
 ```

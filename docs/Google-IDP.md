@@ -16,8 +16,10 @@
 	* Authorized redirect URIs = http://localhost:9292/oauth2callback
 
 10. Click "Save" button
-11. Update Google metadata in _app/index.html_
+11. Update Google metadata in _terraform/variables.tf_ with app client id
 
-```html
-<meta name="google-signin-client_id" content="${app.uid}.apps.googleusercontent.com"/>
+```
+variable "login_provider" {
+	default = "$APP_CLIENT_ID"
+}
 ```
