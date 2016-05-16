@@ -4,10 +4,18 @@ var app = angular.module('signInButton', []);
 
 app.controller('MainController', ['$scope',
     function($scope) {
-      //for more options visit https://developers.google.com/identity/sign-in/web/reference#gapisignin2renderwzxhzdk114idwzxhzdk115_wzxhzdk116optionswzxhzdk117
-      $scope.options = {
-        'onsuccess': googleSignIn
-      }
+		//for more options visit 
+		// https://developers.google.com/identity/sign-in/web/reference#gapisignin2renderwzxhzdk114idwzxhzdk115_wzxhzdk116optionswzxhzdk117
+		$scope.options = {
+			'onsuccess': googleSignIn
+		}
+
+		$scope.signOut = function () {
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2.signOut().then(function () {
+				console.log('User signed out.');
+			});
+		}
     }
   ])
 .directive('googleSignInButton', function() {

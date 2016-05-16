@@ -1,21 +1,33 @@
-<script src='https://apis.google.com/js/platform.js' async defer></script>
-<div class='nav-container no-select fixed-top u-full-width'>
-  <ul id='nav-bar' class='inline-list hover-links nav-list six columns' ng-controller='NavCtrl'>
-    <li ng-repeat='item in items'>
-      <a class='{{item.class}}' href='{{item.href}}'>{{item.text}}</a>
-    </li>
-    <li class='skip-btn'>
-      <a ng-href='#/{{skipBtn.href}}'>{{skipBtn.name}}</a>
-    </li>
-  </ul>
-  <div class='four colums signin-bar' ng-controller='ProfileCtrl'>
-    <span class='profile-link navbar-padding-lg'>
-      <a href='#/profile'>{{email}}</a>
-    </span>    
-    <span class='navbar-padding u-pull-right'>
+<nav class='navbar navbar-inverse'>
+  <div class='container-fluid'>
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="#/">Single Page Application</a>
+    </div>
+    <ul id='nav-bar' class='nav navbar-nav' ng-controller='NavCtrl'>
+      <li ng-repeat='item in items'>
+        <a class='{{item.class}}' href='{{item.href}}'>{{item.text}}</a>
+      </li>
+      <li class='skip-btn'>
+        <a ng-href='#/{{skipBtn.href}}'>{{skipBtn.name}}</a>
+      </li>
+    </ul>
+    <div class='nav navbar-nav navbar-right' ng-controller='ProfileCtrl'>
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{email}}
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href='#/profile'>{{email}}</a></li>
+          <li><a href="#" ng-click='signOut()'>Sign out</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class='nav navbar-nav navbar-right'>
       <google-sign-in-button button-id="uniqueid" options="options"></google-sign-in-button>
-      <!-- <span class='g-signin2' data-onsuccess='googleSignIn'></span> -->
-    </span>
+    </div>
   </div>
-  <div id="my-signin2"></div>
-</div>
+</nav>

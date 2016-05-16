@@ -3,9 +3,9 @@
   <p data-name='description'>{{description}}</p>
   <pre><code data-name='code'>{{code}}</code></pre>
   <form>
-    <textarea class='u-full-width answer' ng-model="answer"></textarea>
+    <textarea class='form-control' ng-model="answer"></textarea>
     <div>
-      <button class='button-primary check-btn' ng-click='checkAnswerClick()'>Check Answer</button>
+      <button class='btn btn-primary' ng-click='checkAnswerClick()'>Check Answer</button>
       <p class='result' ng-include="templateUrl"></p>
     </div>
   </form>

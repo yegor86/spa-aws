@@ -11,11 +11,7 @@ var spa = angular.module('spa', [
 
 spa.config(['$routeProvider',
   function($routeProvider) {
-    $routeProvider.
-      when('/nav-container', {
-        templateUrl: 'partials/nav-container.html',
-        controller: 'NavCtrl'
-      })
+    $routeProvider      
       .when('/skip-btn', {
         templateUrl: 'partials/skip-btn.html',
         controller: 'NavCtrl'
