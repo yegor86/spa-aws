@@ -6,7 +6,6 @@ echo I am provisioning...
 date > /etc/vagrant_provisioned_at
 SCRIPT
 
-
 Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: $script
 
@@ -19,7 +18,5 @@ Vagrant.configure("2") do |config|
     spa.vm.provision :shell, inline: $script
     spa.vm.provision :shell, :path => "vagrant-init/bootstrap.sh"
     spa.vm.network "forwarded_port", guest: 9293, host: 9293
-
   end
-  
 end
