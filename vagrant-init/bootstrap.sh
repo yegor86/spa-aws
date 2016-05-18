@@ -23,5 +23,5 @@ sudo chmod +x apex_linux_amd64
 mkdir apex
 mv apex_linux_amd64 apex/apex
 
-echo "PATH=$PATH:~/terraform:~/apex" >> ~/.bash_profile
-echo "cd /mnt/spa" >> ~/.bashrc
+echo "PATH=$PATH:~/terraform:~/apex" >> /home/vagrant/.bash_profile
+echo "cd /mnt/spa" >> /home/vagrant/.bashrc
