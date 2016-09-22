@@ -1,0 +1,13 @@
+{
+    "description" : "Description of Lambda",
+    "runtime" : "java",
+    "handler" : "lambda.Main::handleRequest",
+    "timeout" : 60,
+    "memory": 512,
+    "hooks": {
+        "build": "./gradlew jar",
+        "clean": "./gradlew clean"
+    }
+}
+
+

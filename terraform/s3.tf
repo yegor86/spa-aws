@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "demos3" {
-    bucket = "s3-spa.demos3.com"
+    bucket = "spa.demos.com"
     acl = "public-read"
     //policy = "${file("policy.json")}"
 
