@@ -77,12 +77,12 @@ EOF
 
 resource "template_file" "generated_project_config" {
     depends_on = ["aws_iam_role.iam_role_for_lambda"]
-    template = "${file("${path.module}/../services/project.json.tpl")}"
+    template = "${file("${path.module}/../project.json.tpl")}"
     vars {
         iam_role = "${aws_iam_role.iam_role_for_lambda.arn}"
         aws_region = "${var.aws_region}"
     }
     provisioner "local-exec" {
-        command ="echo \"${self.rendered}\" > ${path.module}/../services/project.json"
+        command ="echo \"${self.rendered}\" > ${path.module}/../project.json"
     }
 }

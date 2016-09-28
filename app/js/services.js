@@ -59,7 +59,7 @@ spaServices.factory('Problems', ['$resource', '$q',
                 return cognito.identity.then(function(identity) {
                     var lambda = new AWS.Lambda();
                     var params = {
-                        FunctionName: 'spa_checkAnswer',
+                        FunctionName: 'spa_verifyAnswer',
                         Payload: JSON.stringify({
                             problemId: problemId,
                             answer: answer

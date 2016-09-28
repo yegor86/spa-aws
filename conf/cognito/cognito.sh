@@ -13,7 +13,7 @@ function create_cognito_auth_role() {
   
   aws --profile $profile iam create-role \
     --role-name "$role_name" \
-    --assume-role-policy-document "file://$TARGET_DIR/assume_role_policy.json" \
+    --assume-role-policy-document "file://$SOURCE_DIR/assume_role_policy.json" \
     > $TARGET_DIR/role_info.json
 }
 
