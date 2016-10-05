@@ -8,13 +8,12 @@ function create_cognito_auth_role() {
     
   generate_assume_role_policy ${pool_id} > $SOURCE_DIR/assume_role_policy.json
   
-  local role_name="${pool_name}_cognito_role"
-  echo "Creaing role: $role_name"
-  
-  aws --profile $profile iam create-role \
-    --role-name "$role_name" \
-    --assume-role-policy-document "file://$SOURCE_DIR/assume_role_policy.json" \
-    > $TARGET_DIR/role_info.json
+  #local role_name="${pool_name}_cognito_role"
+  #echo "Creaing role: $role_name"
+  #aws --profile $profile iam create-role \
+  #  --role-name "$role_name" \
+  #  --assume-role-policy-document "file://$SOURCE_DIR/assume_role_policy.json" \
+  #  > $TARGET_DIR/role_info.json
 }
 
 function generate_assume_role_policy() {
